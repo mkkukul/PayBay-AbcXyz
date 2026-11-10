@@ -1,0 +1,25 @@
+{
+  "name": "agentspend-pro",
+  "version": "1.0.0",
+  "description": "Autonomous multi-language smart shopping and financial decision agent with 5N1K analysis and PayPal Sandbox integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "paypal",
+    "fintech",
+    "ai-agent",
+    "5n1k",
+    "market-intelligence",
+    "multilingual"
+  ],
+  "author": "AgentSpend Pro Architect",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "node-fetch": "^2.7.0"
+  }
+}

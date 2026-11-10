@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentSpend Pro - Autonomous FinTech Decision Agent</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="brand">
+        <div class="brand-icon">P</div>
+        <div>
+          <span class="brand-title">AgentSpend Pro</span>
+          <span class="brand-tag">FinTech AI Agent</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <div class="status-badge" id="sandboxStatusBadge">
+          <span class="status-dot"></span>
+          <span id="sandboxStatusText">PayPal Sandbox: Connected</span>
+        </div>
+
+        <!-- 9-Language Switcher -->
+        <select id="languageSelector" class="lang-select" aria-label="Select Language">
+          <option value="en" selected>🇬🇧 English</option>
+          <option value="tr">🇹🇷 Türkçe</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+          <option value="it">🇮🇹 Italiano</option>
+          <option value="pt">🇵🇹 Português</option>
+          <option value="ru">🇷🇺 Русский</option>
+          <option value="ar">🇸🇦 العربية</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Intro -->
+  <section class="hero container">
+    <h1 data-i18n="heroTitle">AgentSpend Pro: Autonomous FinTech Decision Agent</h1>
+    <p data-i18n="heroDesc">
+      Real-time 5N1K behavioral analysis, stock market-style dip & peak tracking, and secure PayPal Sandbox checkout.
+    </p>
+  </section>
+
+  <!-- Main Application Body -->
+  <main class="container app-grid">
+    
+    <!-- Left Column: Spending Input Form -->
+    <section class="card" aria-labelledby="formTitle">
+      <h2 id="formTitle" class="card-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <span data-i18n="inputTitle">Analyze Purchase Decision</span>
+      </h2>
+
+      <form id="spendAnalysisForm">
+        <div class="form-group">
+          <label class="form-label" for="inputItem" data-i18n="itemLabel">Product Name or Asset</label>
+          <input 
+            type="text" 
+            id="inputItem" 
+            class="form-input" 
+            data-i18n-placeholder="itemPlaceholder" 
+            placeholder="e.g. Sony WH-1000XM5 Noise-Canceling Headphones" 
+            required 
+          />
+          <div class="quick-chips">
+            <span style="font-size: 11px; color: var(--text-secondary); width: 100%;" data-i18n="quickChipsLabel">Quick Presets:</span>
+            <div id="quickChips" class="quick-chips"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inputCategory" data-i18n="categoryLabel">Category</label>
+          <select id="inputCategory" class="form-select">
+            <option value="electronics">Consumer Electronics & Gadgets</option>
+            <option value="computing">Computing & Office Gear</option>
+            <option value="home">Home & Kitchen Appliances</option>
+            <option value="apparel">Fashion & Apparel</option>
+            <option value="lifestyle">Fitness & Lifestyle</option>
+            <option value="general">General Merchandise</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inputPrice" data-i18n="priceLabel">Price & Currency</label>
+          <div class="input-row">
+            <input 
+              type="number" 
+              id="inputPrice" 
+              class="form-input" 
+              placeholder="349.00" 
+              step="0.01" 
+              min="1" 
+              required 
+            />
+            <select id="inputCurrency" class="form-select">
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+              <option value="GBP">GBP (£)</option>
+              <option value="TRY">TRY (₺)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inputReason" data-i18n="reasonLabel">Why do you want to buy it? (Motivation)</label>
+          <textarea 
+            id="inputReason" 
+            class="form-textarea" 
+            rows="3" 
+            data-i18n-placeholder="reasonPlaceholder" 
+            placeholder="e.g. For remote work concentration, old ones broke down"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inputUrgency" data-i18n="urgencyLabel">Urgency Level</label>
+          <select id="inputUrgency" class="form-select">
+            <option value="low" data-i18n="urgencyLow">Low (Casual Wishlist)</option>
+            <option value="medium" selected data-i18n="urgencyMedium">Medium (Planning / 1-2 Weeks)</option>
+            <option value="high" data-i18n="urgencyHigh">High (Immediate Replacement Needed)</option>
+          </select>
+        </div>
+
+        <button type="submit" id="btnSubmit" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span data-i18n="btnAnalyze">Run Agent Decision Engine</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- Right Column: Agent Intelligence & Decision Engine Results -->
+    <section class="results-container" id="resultsContainer">
+
+      <!-- Default Placeholder State -->
+      <div class="card placeholder-state" id="resultsPlaceholder">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#0079c1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+        </svg>
+        <h3 style="font-size: 18px; margin-bottom: 6px;" data-i18n="resultsPlaceholderTitle">Awaiting Input Parameters</h3>
+        <p style="font-size: 14px; max-width: 480px; margin: 0 auto;" data-i18n="resultsPlaceholderDesc">
+          Enter product details to initiate 5N1K behavioral screening, 30-day market ticker analysis, and optimal pricing strategy.
+        </p>
+      </div>
+
+      <!-- Active Content (Hidden by default until analysis is run) -->
+      <div id="resultsContent" style="display: none; flex-direction: column; gap: 24px;">
+
+        <!-- Financial Verdict & Sentiment Banner -->
+        <div class="verdict-banner">
+          <div class="verdict-left">
+            <span style="font-size: 12px; color: var(--text-secondary); text-transform: uppercase; font-weight: 700;">Financial Verdict</span>
+            <div id="verdictBadge" class="verdict-badge badge-buy">BUY (Fair Value)</div>
+            <span id="sentimentText" class="sentiment-pill">Stable / Neutral Range</span>
+          </div>
+
+          <div class="necessity-meter">
+            <div class="meter-header">
+              <span data-i18n="necessityTitle">5N1K Necessity Score</span>
+              <span id="necessityScoreNum">75/100</span>
+            </div>
+            <div class="meter-bar-bg">
+              <div id="necessityFill" class="meter-bar-fill" style="width: 75%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stock-Market Style 30-Day Ticker & Sparkline -->
+        <div class="market-ticker-card">
+          <h3 class="card-title" style="margin-bottom: 12px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+              <polyline points="17 6 23 6 23 12"></polyline>
+            </svg>
+            <span data-i18n="marketTitle">30-Day Market Intelligence & Pricing Ticker</span>
+          </h3>
+
+          <div class="stats-row">
+            <div class="stat-box">
+              <div class="stat-label" data-i18n="statCurrent">Current Price</div>
+              <div class="stat-value" id="statCurrentVal">$349</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label" data-i18n="statAvg">30D Fair Value</div>
+              <div class="stat-value" id="statAvgVal">$330</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label" data-i18n="statLow">30D Dip (Support)</div>
+              <div class="stat-value dip" id="statLowVal">$299</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label" data-i18n="statHigh">30D Peak (Resistance)</div>
+              <div class="stat-value peak" id="statHighVal">$389</div>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="priceChart"></canvas>
+          </div>
+        </div>
+
+        <!-- 5N1K (5W1H) Diagnostic Grid -->
+        <div>
+          <h3 class="card-title" style="margin-bottom: 14px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <span>5N1K (5W1H) Diagnostic Screening</span>
+          </h3>
+          <div class="n1k-grid" id="n1kGrid">
+            <!-- Dynamic 5N1K items injected by app.js -->
+          </div>
+        </div>
+
+        <!-- Smart Alternatives Section -->
+        <div>
+          <h3 class="card-title" style="margin-bottom: 14px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+            <span data-i18n="alternativesTitle">Smart Alternative Equivalents</span>
+          </h3>
+          <div class="alternatives-grid" id="alternativesGrid">
+            <!-- Dynamic alternative cards injected by app.js -->
+          </div>
+        </div>
+
+        <!-- Verified PayPal Sandbox Checkout Box -->
+        <div class="checkout-box" id="checkoutSection">
+          <h3 class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#003087" stroke-width="2">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+              <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+            <span data-i18n="checkoutTitle">Verified PayPal Sandbox Checkout</span>
+          </h3>
+
+          <div class="checkout-summary">
+            <div class="summary-line">
+              <span data-i18n="summaryItem">Item</span>
+              <strong id="checkoutItemName">Sony WH-1000XM5 Headphones</strong>
+            </div>
+            <div class="summary-line">
+              <span data-i18n="summaryPrice">Listed Price</span>
+              <span id="checkoutItemPrice">$349.00</span>
+            </div>
+            <div class="summary-line">
+              <span data-i18n="summaryProtection">Agent Protection & Verification</span>
+              <span style="color: var(--success);" data-i18n="summaryFree">FREE ($0.00)</span>
+            </div>
+            <div class="summary-line total">
+              <span data-i18n="summaryTotal">Total Due</span>
+              <span id="checkoutTotalPrice">$349.00</span>
+            </div>
+          </div>
+
+          <button type="button" id="btnPayPalCheckout" class="btn-paypal">
+            <svg class="paypal-badge-svg" viewBox="0 0 100 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.5 4H5.8C5.4 4 5 4.3 4.9 4.7L2.1 22.3C2.1 22.6 2.3 22.8 2.6 22.8H5.9C6.3 22.8 6.7 22.5 6.8 22.1L7.6 17.2C7.7 16.8 8.1 16.5 8.5 16.5H11.2C15.8 16.5 18.5 14.3 19.2 9.9C19.5 7.9 19.1 6.4 18 5.4C16.8 4.3 14.9 4 12.5 4Z" fill="#003087"/>
+              <path d="M24.8 8.7C24.4 8.7 24.1 8.9 24 9.3L23.2 14.2C23.1 14.6 22.7 14.9 22.3 14.9H20.6L21.7 8.2C21.8 7.8 21.4 7.4 21 7.4H17.7C17.3 7.4 16.9 7.7 16.8 8.1L14 25.7C14 26 14.2 26.2 14.5 26.2H17.8C18.2 26.2 18.6 25.9 18.7 25.5L19.5 20.6C19.6 20.2 20 19.9 20.4 19.9H23.1C27.7 19.9 30.4 17.7 31.1 13.3C31.4 11.3 31 9.8 29.9 8.8C28.7 7.7 26.9 8.7 24.8 8.7Z" fill="#0079C1"/>
+            </svg>
+            <span data-i18n="btnPayWithPayPal">Pay with PayPal Sandbox</span>
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Modal: Payment Captured Confirmation -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-card">
+      <div class="modal-icon">&#10003;</div>
+      <h3 class="modal-title" data-i18n="modalSuccessTitle">Transaction Verified & Captured!</h3>
+      <p class="modal-subtitle" data-i18n="modalSuccessDesc">
+        Your purchase has been authorized and captured through PayPal Sandbox.
+      </p>
+
+      <div class="receipt-box">
+        <div class="receipt-row">
+          <span class="receipt-label" data-i18n="modalOrderId">Order ID:</span>
+          <span class="receipt-val" id="modalOrderIdVal">SANDBOX_ORDER_12345</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label" data-i18n="modalTxId">Transaction Ref:</span>
+          <span class="receipt-val" id="modalTxIdVal">TX_99182312</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label" data-i18n="modalPayer">Payer Name:</span>
+          <span class="receipt-val" id="modalPayerVal">Sandbox Buyer</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label" data-i18n="modalStatus">Payment Status:</span>
+          <span class="receipt-val" style="color: var(--success);" id="modalStatusVal">COMPLETED</span>
+        </div>
+      </div>
+
+      <button type="button" class="btn-close-modal" id="modalCloseBtn" data-i18n="modalClose">
+        Done / New Analysis
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>AgentSpend Pro &bull; Autonomous FinTech & Smart Shopping Agent &bull; Integrated with PayPal Sandbox API</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
